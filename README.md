@@ -16,15 +16,17 @@ The following **required** functionality is completed:
 
 - [x] (3 pts) **Add and implement Bottom Navigation to your application**
   - Allows navigation between books and articles using Bottom Navigation.
-  - ![GIF showing Bottom Navigation functionality](http://i.imgur.com/link/to/your/gif/file.gif) <!-- Replace this link with your actual image/GIF link -->
+  - ![navigation](https://github.com/user-attachments/assets/19594961-a6fa-4c61-b098-33fcb5f38c37)
 
 - [x] (4 pts) **Dynamically use fragments within Activities**
   - Displays books and articles in their respective fragments, dynamically managed within the main activity.
-  - ![GIF showing fragment management](http://i.imgur.com/link/to/your/gif/file.gif) <!-- Replace this link with your actual image/GIF link -->
+  - ![fragment](https://github.com/user-attachments/assets/71fd2063-d48d-446b-b249-ddaa27ba846a)
+
 
 - [x] (3 pts) **Customize the toolbar and icons**
   - Provides a unique toolbar experience for each section with relevant icons.
-  - ![GIF showing toolbar customization](http://i.imgur.com/link/to/your/gif/file.gif) <!-- Replace this link with your actual image/GIF link -->
+  - ![image](https://github.com/user-attachments/assets/2b8bf90d-aa8d-4400-a717-605761d23198)
+
 
 ### Stretch Features
 
@@ -32,11 +34,17 @@ The following **stretch** functionality is implemented:
 
 - [ ] (+2 pts) **Customize a Home screen using the [Most Popular NYTimes Articles API](https://developer.nytimes.com/docs/most-popular-product/1/overview)**
   - Displays a list of popular articles on a custom home screen.
-  - ![GIF showing Home screen with popular articles](http://i.imgur.com/link/to/your/gif/file.gif) <!-- Replace this link with your actual image/GIF link -->
+  - ![home](https://github.com/user-attachments/assets/9d2b78f0-5ecd-4676-ac40-9dbc45ddc738)
+  - ![image](https://github.com/user-attachments/assets/88e6ce0b-f218-4911-8f3e-90d24237c869)
+
+
+
 
 - [ ] (2 pts) **Respond to device orientation changes without resetting the application**
   - Ensures app content maintains its state across orientation changes.
-  - ![GIF showing orientation change handling](http://i.imgur.com/link/to/your/gif/file.gif) <!-- Replace this link with your actual image/GIF link -->
+  - ![image](https://github.com/user-attachments/assets/f7345050-80a4-447a-82fa-ded2f2f23bce)
+  - ![image](https://github.com/user-attachments/assets/e7abf4ee-b80e-4ebf-a17e-9963dcbbda34)
+
 
 ## Notes
 
