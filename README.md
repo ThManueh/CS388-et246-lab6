@@ -46,9 +46,15 @@ The following **stretch** functionality is implemented:
   - ![image](https://github.com/user-attachments/assets/e7abf4ee-b80e-4ebf-a17e-9963dcbbda34)
 
 
-## Notes
 
-Describe any challenges encountered while building the app. <!-- Replace this with your specific challenges and experiences -->
+**ALL**
+![all](https://github.com/user-attachments/assets/ba13c1ef-43e3-40e3-9be0-e1ec73db644c)
+
+
+
+
+
+## Notes
 
 ## Resources
 
