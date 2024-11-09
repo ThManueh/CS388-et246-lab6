@@ -14,8 +14,7 @@ import okhttp3.Headers
 import org.json.JSONException
 
 private const val TAG = "HomeFragment"
-private const val SEARCH_API_KEY = BuildConfig.API_KEY
-private const val ARTICLE_SEARCH_URL = "https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=$SEARCH_API_KEY"
+private const val ARTICLE_SEARCH_URL = "https://api.nytimes.com/svc/mostpopular/v2/viewed/7.json?api-key=${BuildConfig.API_KEY}"
 
 class HomeFragment : Fragment() {
     private val articles = mutableListOf<DisplayableArticle>()
@@ -26,14 +25,12 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        articlesRecyclerView = view.findViewById(R.id.article_recycler_view)
-        articlesRecyclerView.layoutManager = LinearLayoutManager(context)
-        articleAdapter = ArticleAdapter(view.context, articles)
-        articlesRecyclerView.adapter = articleAdapter
-
-        return view
+        return inflater.inflate(R.layout.fragment_home, container, false).apply {
+            articlesRecyclerView = findViewById(R.id.article_recycler_view)
+            articlesRecyclerView.layoutManager = LinearLayoutManager(context)
+            articleAdapter = ArticleAdapter(context, articles)
+            articlesRecyclerView.adapter = articleAdapter
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,8 +39,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchPopularArticles() {
-        val client = AsyncHttpClient()
-        client.get(ARTICLE_SEARCH_URL, object : JsonHttpResponseHandler() {
+        AsyncHttpClient().get(ARTICLE_SEARCH_URL, object : JsonHttpResponseHandler() {
             override fun onFailure(
                 statusCode: Int,
                 headers: Headers?,
@@ -60,8 +56,10 @@ class HomeFragment : Fragment() {
                         PopularNewsResponse.serializer(),
                         json.jsonObject.toString()
                     )
-                    articles.clear()
-                    articles.addAll(parsedJson.results)  // Add PopularArticle objects directly
+                    articles.apply {
+                        clear()
+                        addAll(parsedJson.results)
+                    }
                     articleAdapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
                     Log.e(TAG, "Exception: $e")

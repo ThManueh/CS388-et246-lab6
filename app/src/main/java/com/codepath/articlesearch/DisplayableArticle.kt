@@ -5,5 +5,5 @@ interface DisplayableArticle : java.io.Serializable{
     val title: String
     val abstract: String
     val mediaImageUrl: String
-    val byline: String?  // Optional, as byline may not always be available
+    val byline: String?
 }

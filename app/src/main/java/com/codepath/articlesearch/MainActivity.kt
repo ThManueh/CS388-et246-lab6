@@ -25,37 +25,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set default or restored selected item
         val selectedFragmentId = savedInstanceState?.getInt(SELECTED_NAV_ITEM_KEY) ?: R.id.nav_home
         binding.bottomNavigation.selectedItemId = selectedFragmentId
 
-        // Check if fragment is already loaded to avoid reloading on rotation
         if (supportFragmentManager.findFragmentById(R.id.article_frame_layout) == null) {
-            val fragment = when (selectedFragmentId) {
-                R.id.nav_home -> HomeFragment()
-                R.id.nav_books -> BestSellerBooksFragment()
-                R.id.nav_articles -> ArticleListFragment()
-                else -> HomeFragment()
-            }
-            replaceFragment(fragment)
+            replaceFragment(getFragmentById(selectedFragmentId))
         }
 
-        // Set up BottomNavigationView listener
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-            val fragment = when (item.itemId) {
-                R.id.nav_home -> HomeFragment()
-                R.id.nav_books -> BestSellerBooksFragment()
-                R.id.nav_articles -> ArticleListFragment()
-                else -> HomeFragment()
-            }
-            replaceFragment(fragment)
+            replaceFragment(getFragmentById(item.itemId))
             true
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        // Save the currently selected navigation item ID with a consistent key
         outState.putInt(SELECTED_NAV_ITEM_KEY, binding.bottomNavigation.selectedItemId)
     }
 
@@ -64,5 +48,14 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.article_frame_layout, fragment)
             .commit()
+    }
+
+    private fun getFragmentById(itemId: Int): Fragment {
+        return when (itemId) {
+            R.id.nav_home -> HomeFragment()
+            R.id.nav_books -> BestSellerBooksFragment()
+            R.id.nav_articles -> ArticleListFragment()
+            else -> HomeFragment()
+        }
     }
 }
