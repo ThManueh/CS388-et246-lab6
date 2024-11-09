@@ -22,7 +22,7 @@ data class BaseResponse(
 @Serializable
 data class Article(
     @SerialName("web_url")
-    val webUrl: String?,
+    override val webUrl: String,
     @SerialName("pub_date")
     val pubDate: String?,
     @SerialName("headline")
@@ -30,12 +30,16 @@ data class Article(
     @SerialName("multimedia")
     val multimedia: List<MultiMedia>?,
     @SerialName("abstract")
-    val abstract: String?,
+    override val abstract: String,
     @SerialName("byline")
-    val byline: Byline?,
-) : java.io.Serializable {
-    val mediaImageUrl =
-        "https://www.nytimes.com/${multimedia?.firstOrNull { it.url != null }?.url ?: ""}"
+    val bylineObject: Byline?
+) : DisplayableArticle {
+    override val title: String
+        get() = headline?.main.orEmpty()
+    override val byline: String?
+        get() = bylineObject?.original
+    override val mediaImageUrl: String
+        get() = "https://www.nytimes.com/${multimedia?.firstOrNull { it.url != null }?.url.orEmpty()}"
 }
 
 @Keep

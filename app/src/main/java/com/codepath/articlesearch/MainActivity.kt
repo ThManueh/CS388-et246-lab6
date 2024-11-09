@@ -14,8 +14,6 @@ fun createJson() = Json {
 }
 
 private const val TAG = "MainActivity/"
-private const val SEARCH_API_KEY = BuildConfig.API_KEY
-private const val ARTICLE_SEARCH_URL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${BuildConfig.API_KEY}"
 private const val SELECTED_NAV_ITEM_KEY = "SELECTED_NAV_ITEM_KEY"
 
 class MainActivity : AppCompatActivity() {
@@ -25,19 +23,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         // Set default or restored selected item
-        val selectedFragmentId = savedInstanceState?.getInt(SELECTED_NAV_ITEM_KEY) ?: R.id.nav_books
+        val selectedFragmentId = savedInstanceState?.getInt(SELECTED_NAV_ITEM_KEY) ?: R.id.nav_home
         binding.bottomNavigation.selectedItemId = selectedFragmentId
 
         // Check if fragment is already loaded to avoid reloading on rotation
         if (supportFragmentManager.findFragmentById(R.id.article_frame_layout) == null) {
             val fragment = when (selectedFragmentId) {
+                R.id.nav_home -> HomeFragment()
                 R.id.nav_books -> BestSellerBooksFragment()
                 R.id.nav_articles -> ArticleListFragment()
-                else -> BestSellerBooksFragment()
+                else -> HomeFragment()
             }
             replaceFragment(fragment)
         }
@@ -45,9 +43,10 @@ class MainActivity : AppCompatActivity() {
         // Set up BottomNavigationView listener
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             val fragment = when (item.itemId) {
+                R.id.nav_home -> HomeFragment()
                 R.id.nav_books -> BestSellerBooksFragment()
                 R.id.nav_articles -> ArticleListFragment()
-                else -> BestSellerBooksFragment()
+                else -> HomeFragment()
             }
             replaceFragment(fragment)
             true
@@ -61,10 +60,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        Log.d("MainActivity", "Replacing fragment: $fragment")
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.article_frame_layout, fragment)
-        fragmentTransaction.commit()
+        Log.d(TAG, "Replacing fragment: $fragment")
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.article_frame_layout, fragment)
+            .commit()
     }
 }

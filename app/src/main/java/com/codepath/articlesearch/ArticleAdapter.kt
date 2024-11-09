@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 const val ARTICLE_EXTRA = "ARTICLE_EXTRA"
 private const val TAG = "ArticleAdapter"
 
-class ArticleAdapter(private val context: Context, private val articles: List<Article>) :
+class ArticleAdapter(private val context: Context, private val articles: MutableList<DisplayableArticle>) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,8 +39,8 @@ class ArticleAdapter(private val context: Context, private val articles: List<Ar
             itemView.setOnClickListener(this)
         }
 
-        fun bind(article: Article) {
-            titleTextView.text = article.headline?.main
+        fun bind(article: DisplayableArticle) {
+            titleTextView.text = article.title
             abstractTextView.text = article.abstract
 
             Glide.with(context)
@@ -49,12 +49,9 @@ class ArticleAdapter(private val context: Context, private val articles: List<Ar
         }
 
         override fun onClick(v: View?) {
-            // Get selected article
             val article = articles[absoluteAdapterPosition]
-
-            // Navigate to Details screen and pass selected article
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(ARTICLE_EXTRA, article)
+            intent.putExtra(ARTICLE_EXTRA, article as java.io.Serializable)  // Ensure `DisplayableArticle` implements Serializable
             context.startActivity(intent)
         }
     }
